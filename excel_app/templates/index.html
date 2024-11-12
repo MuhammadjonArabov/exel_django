@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Excel Ma'lumotlari</title>
+    <style>
+        /* Progress bar uchun ranglarni sozlash */
+        .progress-bar-low { background-color: #add8e6; } /* Och rang */
+        .progress-bar-medium { background-color: #6495ed; } /* O‘rtacha rang */
+        .progress-bar-high { background-color: #00008b; } /* To'q rang */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Excel Ma'lumotlari</h1>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    {% for column in data.columns %}
+                        <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data.values %}
+                    <tr>
+                        {% for item in row %}
+                            {% if forloop.last %}
+                                <td>
+                                    <!-- Oxirgi ustunda progress bar qo'shish -->
+                                    <div class="progress">
+                                        {% if item <= 33 %}
+                                            <div class="progress-bar progress-bar-low" role="progressbar" style="width: {{ item }}%;" aria-valuenow="{{ item }}" aria-valuemin="0" aria-valuemax="100">
+                                                {{ item }}%
+                                            </div>
+                                        {% elif item <= 66 %}
+                                            <div class="progress-bar progress-bar-medium" role="progressbar" style="width: {{ item }}%;" aria-valuenow="{{ item }}" aria-valuemin="0" aria-valuemax="100">
+                                                {{ item }}%
+                                            </div>
+                                        {% else %}
+                                            <div class="progress-bar progress-bar-high" role="progressbar" style="width: {{ item }}%;" aria-valuenow="{{ item }}" aria-valuemin="0" aria-valuemax="100">
+                                                {{ item }}%
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            {% else %}
+                                <td>{{ item }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
